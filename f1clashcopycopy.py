@@ -8,7 +8,7 @@ import os
 import cv2
 #changes to jeddah and 7 laps races strat
 
-os.environ["TESSDATA_PREFIX"] = 'C:/Users/seeho/testadb/Tesseract-OCR/tessdata'
+os.environ["TESSDATA_PREFIX"] = 'C:/Users/seeho/testadb/misc/Tesseract-OCR/tessdata'
 adb = Client(host='127.0.0.1', port= 5037)
 devices = adb.devices()
 start_time = time.time()
@@ -88,7 +88,7 @@ while True:
         cv2.rectangle(image, pt, bottom_right, (0, 255, 0), 2)
     
     # # Perform OCR on the screenshot
-    pytesseract.pytesseract.tesseract_cmd = 'C:/Users/seeho/testadb/Tesseract-OCR/tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = 'C:/Users/seeho/testadb/misc/Tesseract-OCR/tesseract.exe'
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     extracted_text = pytesseract.image_to_string(gray, lang='eng', config='--psm 6 tessedit_char_unblacklist=0123456789')
     # cv2.imwrite('output.png', image)
