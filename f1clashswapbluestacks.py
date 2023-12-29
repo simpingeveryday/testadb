@@ -725,7 +725,7 @@ while True:
         #boost pia
         device.shell('input touchscreen tap 110 1380')
         #lec pitstop
-        time.sleep(5)
+        time.sleep(1)
         device.shell('input touchscreen tap 820 2165')
         #lec wets
         time.sleep(1)
