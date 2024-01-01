@@ -29,6 +29,7 @@ jeddah = 0
 winner1 = 0
 race = 0
 lecwet = 0
+sprint = 0
 # Check if the extracted text is "7"
 while True:
     time.sleep(0.1)
@@ -172,12 +173,12 @@ while True:
         print("MONTREAL")
 
     elif state == 101 and "MONACO" in extracted_text:
-        time.sleep(25)
+        time.sleep(20)
         state = 200
         print("MONACO")
     
     elif state == 101 and "JEDDAH" in extracted_text:
-        time.sleep(25)
+        time.sleep(20)
         state = 150
         print("JEDDAH")
     
@@ -210,8 +211,8 @@ while True:
 
     elif cloudloc[0].size == 0 and state == 60:
         print("lap8")
-        #lecmedium
-        device.shell('input touchscreen tap 300 1156')
+        #lecsoft
+        device.shell('input touchscreen tap 300 956')
         time.sleep(1)
         #PIA Hards
         device.shell('input touchscreen tap 900 1350')
@@ -971,7 +972,7 @@ while True:
     #     state = 3
 
     
-    elif state == 4 and wet == 0 and ("LAP6" in extracted_text or "LAP 6" in extracted_text) and ("Rain" in extracted_text or "rain" in extracted_text) and "/8" in extracted_text:
+    elif state == 2 and wet == 1 and ("LAP6" in extracted_text or "LAP 6" in extracted_text) and ("Rain" in extracted_text or "rain" in extracted_text) and "/8" in extracted_text:
         time.sleep(1)
         #PIA pitstop
         device.shell('input touchscreen tap 216 2270')
@@ -1930,7 +1931,7 @@ while True:
         state = 63
         wet = 1
 
-    elif state == 62 and ("LAP 4" in extracted_text or "LAP4" in extracted_text) and "Rain" not in extracted_text:
+    elif state == 62 and ("LAP 3" in extracted_text or "LAP3" in extracted_text) and "Rain" not in extracted_text:
         #lec pitstop
         time.sleep(5)
         device.shell('input touchscreen tap 216 2265')
@@ -1958,7 +1959,7 @@ while True:
         state = 63
         wet = 0
 
-    elif state == 63 and ("LAP 7" in extracted_text or "LAP7" in extracted_text or "LAP?" in extracted_text) and "Rain" not in extracted_text:
+    elif state == 63 and ("LAP 6" in extracted_text or "LAP6" in extracted_text) and "Rain" not in extracted_text:
         #lec pitstop
         time.sleep(5)
         device.shell('input touchscreen tap 216 2265')
@@ -2049,6 +2050,9 @@ while True:
         time.sleep(1)
         #lecserv
         device.shell('input touchscreen tap 836 1856')
+        time.sleep(6)
+        #stop pia boost
+        device.shell('input touchscreen tap 110 1630')
         state = 73
         wet = 1
         
@@ -2105,7 +2109,7 @@ while True:
         state = 74
         wet = 0
 
-    elif state == 74 and ("LAP 4" in extracted_text or "LAP4" in extracted_text) and ("Rain" in extracted_text or "rain" in extracted_text):
+    elif state == 74 and wet == 1 and ("LAP 4" in extracted_text or "LAP4" in extracted_text) and ("Rain" in extracted_text or "rain" in extracted_text):
         time.sleep(5)
         #lec pitstop
         device.shell('input touchscreen tap 820 2265')
@@ -2577,6 +2581,9 @@ while True:
         device.shell('input touchscreen tap 300 2244')
         time.sleep(5)
         device.shell('input touchscreen tap 950 795')
+        time.sleep(0.5)
+        sprint += 1
+        print(f"opened crates: {sprint}")
         state = 100
         
 

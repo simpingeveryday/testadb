@@ -1311,7 +1311,7 @@ while True:
     #     state = 3
 
     
-    elif state == 4 and wet == 0 and ("LAP6" in extracted_text or "LAP 6" in extracted_text) and ("Rain" in extracted_text or "rain" in extracted_text) and "/8" in extracted_text:
+    elif state == 2 and wet == 1 and ("LAP6" in extracted_text or "LAP 6" in extracted_text) and ("Rain" in extracted_text or "rain" in extracted_text) and "/8" in extracted_text:
         time.sleep(1)
         #PIA pitstop
         device.shell('input touchscreen tap 216 2170')
