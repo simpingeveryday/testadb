@@ -51,6 +51,8 @@ while True:
     lap10 = cv2.imread('lap10.jpg')
     winner = cv2.imread('winner.jpg')
     crate = cv2.imread('crate.jpg')
+    heavyrain = cv2.imread('heavyrain.jpg')
+
     cloudres = cv2.matchTemplate(image, cloud, cv2.TM_CCOEFF_NORMED)
     lap8res = cv2.matchTemplate(image, lap8, cv2.TM_CCOEFF_NORMED)
     lap7res = cv2.matchTemplate(image, lap7, cv2.TM_CCOEFF_NORMED)
@@ -58,6 +60,8 @@ while True:
     lap10res = cv2.matchTemplate(image, lap10, cv2.TM_CCOEFF_NORMED)
     winnerres = cv2.matchTemplate(image, winner, cv2.TM_CCOEFF_NORMED)
     crateres = cv2.matchTemplate(image, crate, cv2.TM_CCOEFF_NORMED)
+    heavyrainres = cv2.matchTemplate(image, heavyrain, cv2.TM_CCOEFF_NORMED)
+
     threshold = 0.9
 
     cloudloc = numpy.where(cloudres >= threshold)
@@ -93,6 +97,11 @@ while True:
     crateloc = numpy.where(crateres >= threshold)
     for pt in zip(*crateloc[::-1]):
         bottom_right = (pt[0] + crate.shape[1], pt[1] + crate.shape[0])
+        cv2.rectangle(image, pt, bottom_right, (0, 255, 0), 2)
+
+    heavyrainloc = numpy.where(heavyrainres >= threshold)
+    for pt in zip(*heavyrainloc[::-1]):
+        bottom_right = (pt[0] + heavyrain.shape[1], pt[1] + heavyrain.shape[0])
         cv2.rectangle(image, pt, bottom_right, (0, 255, 0), 2)
     
     # # Perform OCR on the screenshot
@@ -214,8 +223,8 @@ while True:
         #lecsoft
         device.shell('input touchscreen tap 300 856')
         time.sleep(1)
-        #PIA Hards
-        device.shell('input touchscreen tap 900 1250')
+        #PIA medium
+        device.shell('input touchscreen tap 900 1050')
         time.sleep(1)
         #start race
         device.shell('input touchscreen tap 588 2150')
@@ -364,7 +373,7 @@ while True:
             
     #check for num of laps and rain
     elif state == 101 and lap7loc[0].size > 0:
-        if cloudloc[0].size > 0:
+        if (cloudloc[0].size > 0 or heavyrainloc[0].size > 0):
             #start race
             device.shell('input touchscreen tap 588 2150')
             state = 2000
@@ -520,8 +529,8 @@ while True:
         #PIA pitstop
         device.shell('input touchscreen tap 820 2170')
         time.sleep(1)
-        #PIAmed
-        device.shell('input touchscreen tap 820 1669')
+        #PIAsoft
+        device.shell('input touchscreen tap 820 1469')
         time.sleep(1)
         #PIAserv
         device.shell('input touchscreen tap 836 1756')
@@ -830,8 +839,8 @@ while True:
         time.sleep(2)
         device.shell('input touchscreen tap 820 2165')
         time.sleep(1)
-        #lechard but now is med need change back for sav
-        device.shell('input touchscreen tap 820 1665')
+        #lechard 
+        device.shell('input touchscreen tap 820 1865')
         time.sleep(1)
         #lecserv
         device.shell('input touchscreen tap 836 1956')
@@ -1063,9 +1072,9 @@ while True:
         #boost lec
         time.sleep(0.5)
         device.shell('input touchscreen tap 1000 1380')
-        time.sleep(5)
+        # time.sleep(5)
         # device.shell('input touchscreen tap 120 1630')
-        device.shell('input touchscreen tap 110 1530')
+        # device.shell('input touchscreen tap 110 1530')
         
         state == 4
             
@@ -1268,8 +1277,8 @@ while True:
         #PIA pitstop
         device.shell('input touchscreen tap 820 2170')
         time.sleep(1.5)
-        #PIA hard
-        device.shell('input touchscreen tap 852 1860')
+        #PIA medium
+        device.shell('input touchscreen tap 852 1660')
         time.sleep(1.5)
         #PIAserv
         device.shell('input touchscreen tap 836 1756')
@@ -1301,8 +1310,8 @@ while True:
         time.sleep(5)
         device.shell('input touchscreen tap 216 2165')
         time.sleep(2)
-        #lecmedium
-        device.shell('input touchscreen tap 302 1671')
+        #lecsoft
+        device.shell('input touchscreen tap 302 1471')
         time.sleep(1.5)
         #lecserv
         device.shell('input touchscreen tap 290 1756')
@@ -1331,8 +1340,8 @@ while True:
         #PIA pitstop
         device.shell('input touchscreen tap 820 2170')
         time.sleep(1.5)
-        #PIA hard
-        device.shell('input touchscreen tap 852 1860')
+        #PIA medium
+        device.shell('input touchscreen tap 852 1660')
         time.sleep(1.5)
         #PIAserv
         device.shell('input touchscreen tap 836 1756')
@@ -1361,11 +1370,11 @@ while True:
 
     elif state == 155 and ("LAP 5" in extracted_text or "LAP5" in extracted_text) and "Rain" not in extracted_text:
         #lec pitstop
-        time.sleep(5)
+        time.sleep(2)
         device.shell('input touchscreen tap 216 2165')
         time.sleep(1)
-        #lecmedium
-        device.shell('input touchscreen tap 302 1671')
+        #lecsoft
+        device.shell('input touchscreen tap 302 1471')
         time.sleep(1)
         # #lecserv
         device.shell('input touchscreen tap 290 1950')
@@ -1411,7 +1420,7 @@ while True:
         #PIA pitstop
         device.shell('input touchscreen tap 820 2170')
         time.sleep(1.5)
-        #PIAmed
+        #PIAsoft
         device.shell('input touchscreen tap 852 1465')
         time.sleep(1.5)
         # #PIAserv
@@ -1421,7 +1430,7 @@ while True:
         device.shell('input touchscreen tap 1000 1380')
         state = 157
 
-    elif state == 157 and "7/7" in extracted_text:
+    elif (state == 156 or state == 157) and "7/7" in extracted_text:
         #boost PIA
         device.shell('input touchscreen tap 110 1380')
         time.sleep(1)
@@ -1787,25 +1796,25 @@ while True:
         state = 33
         wet = 1
 
-    elif state == 32 and "LAP 4" in extracted_text:
+    elif state == 32 and ("LAP 4" in extracted_text or "LAP4" in extracted_text):
         #lec pitstop
         time.sleep(1)
         device.shell('input touchscreen tap 216 2165')
         time.sleep(1)
-        #lecmedium
-        device.shell('input touchscreen tap 302 1671')
+        #lecsoft
+        device.shell('input touchscreen tap 302 1471')
         time.sleep(1)
         #lecserv
         device.shell('input touchscreen tap 290 1756')
-        time.sleep(2)
+        time.sleep(3)
         #boost lec
         device.shell('input touchscreen tap 110 1380')
         time.sleep(1)
         #PIA pitstop
         device.shell('input touchscreen tap 820 2170')
         time.sleep(1)
-        #PIA hard
-        device.shell('input touchscreen tap 852 1860')
+        #PIA medium
+        device.shell('input touchscreen tap 852 1660')
         time.sleep(1)
         #PIAserv
         device.shell('input touchscreen tap 836 1756')
@@ -2573,7 +2582,7 @@ while True:
         device.shell('input touchscreen tap 950 695')
         time.sleep(0.5)
         sprint += 1
-        print(f"won: {sprint}")
+        print(f"sprint: {sprint}")
         state = 100
         
 
