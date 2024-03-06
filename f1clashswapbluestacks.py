@@ -35,7 +35,7 @@ while True:
     time.sleep(0.1)
     image = device.screencap()
 
-    with open('screen.png', 'wb') as f:
+    with open('screen2.png', 'wb') as f:
         f.write(image)
 
     # image = Image.open('screen.png')
@@ -43,7 +43,7 @@ while True:
     # logo = Image.open('cloud.png')
     # logo = numpy.array(image, dtype=numpy.uint8)
     
-    image = cv2.imread('screen.png')
+    image = cv2.imread('screen2.png')
     cloud = cv2.imread('cloud.png')
     lap8 = cv2.imread('lap8.jpg')
     lap7 = cv2.imread('lap7.jpg')

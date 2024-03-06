@@ -48,12 +48,16 @@ while True:
     lightrain = cv2.imread('lightrain.jpg')
     lap10 = cv2.imread('lap10.jpg')
     winner = cv2.imread('winner.jpg')
+    crate = cv2.imread('crate.jpg')
+    heavyrain = cv2.imread('heavyrain.jpg')
     cloudres = cv2.matchTemplate(image, cloud, cv2.TM_CCOEFF_NORMED)
     lap8res = cv2.matchTemplate(image, lap8, cv2.TM_CCOEFF_NORMED)
     lap7res = cv2.matchTemplate(image, lap7, cv2.TM_CCOEFF_NORMED)
     lightrainres = cv2.matchTemplate(image, lightrain, cv2.TM_CCOEFF_NORMED)
     lap10res = cv2.matchTemplate(image, lap10, cv2.TM_CCOEFF_NORMED)
     winnerres = cv2.matchTemplate(image, winner, cv2.TM_CCOEFF_NORMED)
+    crateres = cv2.matchTemplate(image, crate, cv2.TM_CCOEFF_NORMED)
+    heavyrainres = cv2.matchTemplate(image, heavyrain, cv2.TM_CCOEFF_NORMED)
     threshold = 0.9
 
     cloudloc = numpy.where(cloudres >= threshold)
@@ -86,6 +90,16 @@ while True:
         bottom_right = (pt[0] + winner.shape[1], pt[1] + winner.shape[0])
         cv2.rectangle(image, pt, bottom_right, (0, 255, 0), 2)
     
+    crateloc = numpy.where(crateres >= threshold)
+    for pt in zip(*crateloc[::-1]):
+        bottom_right = (pt[0] + crate.shape[1], pt[1] + crate.shape[0])
+        cv2.rectangle(image, pt, bottom_right, (0, 255, 0), 2)
+
+    heavyrainloc = numpy.where(heavyrainres >= threshold)
+    for pt in zip(*heavyrainloc[::-1]):
+        bottom_right = (pt[0] + heavyrain.shape[1], pt[1] + heavyrain.shape[0])
+        cv2.rectangle(image, pt, bottom_right, (0, 255, 0), 2)
+        
     # # Perform OCR on the screenshot
     pytesseract.pytesseract.tesseract_cmd = 'C:/Users/seeho/testadb/Tesseract-OCR/tesseract.exe'
     
