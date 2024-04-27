@@ -118,7 +118,7 @@ while True:
     # print(extracted_text)
     # print(lap8loc[0].size)
     # print("cloud:{}", cloudloc[0].size)
-    print(state)
+    # print(state)
     # Clean up the screenshot file
     # os.remove('screen.png')
     # Example for when it starts raining
@@ -2539,13 +2539,13 @@ while True:
         state = 84
         print("lol")
 
-    elif state == 83 and ("LAP6" in extracted_text or "LAP 6" in extracted_text) and "/8" in extracted_text:
+    elif state == 83 and ("LAP6" in extracted_text or "LAP 6" in extracted_text) and "/8" in extracted_text and "Rain" not in extracted_text:
         #lec pitstop
         time.sleep(sleep_time)
         device.shell('input touchscreen tap 216 2265')
         time.sleep(sleep_time)
-        #lecsofts
-        device.shell('input touchscreen tap 230 1565')
+        #lecmed
+        device.shell('input touchscreen tap 230 1765')
         time.sleep(sleep_time)
         #lecserv
         device.shell('input touchscreen tap 290 2050')
@@ -2650,7 +2650,7 @@ while True:
         device.shell('input touchscreen tap 1000 1480')
         state = 84
             
-    elif state == 84 and "8/8" in extracted_text and "/8" in extracted_text:
+    elif state == 84 and ("8/8" in extracted_text and "/8" in extracted_text):
         #boost pia
         device.shell('input touchscreen tap 110 1480')
         time.sleep(boost_time)

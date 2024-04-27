@@ -139,7 +139,7 @@ while True:
     cv2.imwrite('output.png', image)
     # Print the extracted text
 
-    # print(extracted_text)
+    print(extracted_text)
     # print(lap8loc[0].size)
     # print("cloud:{}", lap10loc[0].size)
     # print(state)
@@ -1787,7 +1787,7 @@ while True:
         state = 12
         wet = 0
 
-    elif state == 12 and ("LAP5" in extracted_text or "LAP 5" in extracted_text or "LAPS" in extracted_text) and ("Rain" in extracted_text or "rain" in extracted_text):
+    elif state == 12 and wet == 1 and ("LAP5" in extracted_text or "LAP 5" in extracted_text or "LAPS" in extracted_text) and ("Rain" in extracted_text or "rain" in extracted_text):
         #PIA pitstop
         device.shell('input touchscreen tap 216 2270')
         time.sleep(1.5)
@@ -1799,6 +1799,32 @@ while True:
         time.sleep(sleep_time)        
         #boost pia
         device.shell('input touchscreen tap 110 1480')
+        state = 13
+        wet = 1
+
+    elif state == 12 and wet == 0 and ("LAP5" in extracted_text or "LAP 5" in extracted_text or "LAPS" in extracted_text) and ("Rain" in extracted_text or "rain" in extracted_text):
+        #PIA pitstop
+        device.shell('input touchscreen tap 216 2270')
+        time.sleep(1.5)
+        #pia wets
+        device.shell('input touchscreen tap 300 2122')
+        time.sleep(1.5)
+        #PIAserv
+        device.shell('input touchscreen tap 290 1856')
+        time.sleep(sleep_time)        
+        #boost pia
+        device.shell('input touchscreen tap 110 1480')
+        time.sleep(sleep_time)
+        device.shell('input touchscreen tap 820 2265')
+        #lec wets
+        time.sleep(sleep_time)
+        device.shell('input touchscreen tap 830 2146')
+        time.sleep(sleep_time)
+        #lecserv
+        device.shell('input touchscreen tap 836 1856')
+        time.sleep(sleep_time)
+        #boost lec
+        device.shell('input touchscreen tap 1000 1480')
         state = 13
         wet = 1
 
@@ -2210,7 +2236,7 @@ while True:
 
     #BRAZIL SAO PAULO
     elif state == 61 and ("1/9" in extracted_text or "/9" in extracted_text):
-        time.sleep(boost_time)
+        # time.sleep(boost_time)
         #tap lec
         device.shell('input touchscreen tap 220 2090')
         time.sleep(boost_time)
@@ -3270,6 +3296,23 @@ while True:
         device.shell('input touchscreen tap 250 1830')
         time.sleep(boost_time)
         device.shell('input touchscreen tap 350 1830')
+
+    elif ("RACE FORFEITED" in extracted_text or "constant internet connection" in extracted_text):
+        device.shell('input touchscreen tap 560 1550')
+        time.sleep(0.3)
+        device.shell('input touchscreen tap 580 2250')
+        time.sleep(0.3)
+        device.shell('input touchscreen tap 580 2250')
+        state = 100
+
+    elif "CONCURRENT RACES ERROR" in extracted_text:
+        device.shell('input touchscreen tap 560 1550')
+        time.sleep(0.3)
+        device.shell('input touchscreen tap 580 2250')
+        time.sleep(0.3)
+        device.shell('input touchscreen tap 580 2250')
+        time.sleep(300)
+        state = 100
 
     # elif "received a reward" in extracted_text:
     #     device.shell('input touchscreen tap 560 1600')
